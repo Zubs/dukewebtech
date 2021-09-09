@@ -1,7 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            <div class="flex space-x-96">
+                <div>{{ __('Dashboard') }}</div>
+                <div></div>
+
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                   Add New Post
+                </button>
+            </div>
         </h2>
     </x-slot>
 
