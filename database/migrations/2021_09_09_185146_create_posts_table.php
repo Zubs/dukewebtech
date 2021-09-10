@@ -16,9 +16,12 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
+            $table->mediumText('excerpt');
             $table->string('slug')->unique();
             $table->text('body');
             $table->boolean('status'); // Add Eval later
+            $table->integer('views');
+            $table->string('audio_name')->unique();
             $table->uuid('user_id');
             $table->timestamps();
         });
