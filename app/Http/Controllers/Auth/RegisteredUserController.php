@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -40,6 +41,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = new User;
+        $user->id = Str::uuid();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
