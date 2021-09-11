@@ -6,27 +6,11 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Auth::user();
-//        if (Auth::user()->is_admin) {
-//            $posts = Post::all();
-//        } else {
-//            $posts = Auth::user()->post();
-//        }
-
-        return view('dashboard')->with($posts);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -119,9 +103,31 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $slug)
     {
-        //
+        $data = $this->validate($request, [
+            'title' => ['string', 'required', 'max:255', 'unique:posts'],
+            'body' => ['string', 'required'],
+        ]);
+
+        $post = Post::firstWhere('slug', $slug);
+        $post->title = $request->title;
+        $post->excerpt = Str::words($request->body, 15);
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+
+        // Handle image
+        if ($request->hasFile('audio') && $request->file('audio')->isValid()) {
+            Storage::delete('/public/audio/'.$post->audio_name);
+            $document = $request->file('audio');
+            $file_name = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $document->getClientOriginalExtension();
+            $document->storeAs('/public/audio', $file_name);
+            $post->audio_name = $file_name;
+        };
+
+        if ($post->save()) {
+            return redirect()->route('dashboard')->with('success', 'Post created successfully');
+        };
     }
 
     /**
