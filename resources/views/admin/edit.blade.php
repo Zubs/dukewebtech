@@ -18,7 +18,7 @@
                         Title
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Title will go here
+                        {{ $post->title }}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -26,7 +26,7 @@
                         Excerpt
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Excerpt will go here
+                        {{ $post->excerpt }}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -34,7 +34,7 @@
                         Body
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque consequuntur cum cupiditate delectus deserunt dicta doloribus ea eligendi, iure minima molestiae odit perspiciatis quam similique sint unde ut velit! Beatae?
+                        {{ $post->body }}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -42,7 +42,7 @@
                         Author
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        AgbaDev
+                        Author name goes here
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -58,7 +58,8 @@
                                         <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
                                     </svg>
                                     <span class="ml-2 flex-1 w-0 truncate">
-                  resume_back_end_developer.pdf
+{{--                  resume_back_end_developer.pdf--}}
+                                        {{ $post->audio_name }}
                 </span>
                                 </div>
                                 <div class="ml-4 flex-shrink-0">

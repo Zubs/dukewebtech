@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -83,6 +84,13 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
+    public function review ($slug)
+    {
+        $post = Post::firstWhere('slug', $slug);
+
+        return view('admin.edit')->with('post', $post);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,9 +99,6 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Auth::user()->is_admin) {
-            return view('admin.edit');
-        }
         return view('posts.edit');
     }
 

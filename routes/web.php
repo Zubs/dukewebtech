@@ -21,10 +21,6 @@ Route::get('/', function () {
     return view('welcome')->with('posts', $posts);
 })->name('home');
 
-Route::get('/test', function () {
-   return view('admin.edit');
-});
-
 Route::group([
     'middleware' => 'auth',
     'prefix' => '/dashboard',
@@ -32,7 +28,8 @@ Route::group([
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/edit', [PostController::class, 'create'])->name('create-post');
     Route::post('/edit', [PostController::class, 'store'])->name('store-post');
-    Route::get('/edit/{uuid}', [PostController::class, 'edit']);
+    Route::get('/edit/{slug}', [PostController::class, 'edit'])->name('edit-post');
+    Route::get('/review/{slug}', [PostController::class, 'review'])->name('edit-post-admin');
 });
 
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('show-post');

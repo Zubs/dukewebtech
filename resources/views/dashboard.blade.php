@@ -44,7 +44,11 @@
                                             Created
                                         </th>
                                         <th scope="col" class="relative px-6 py-3">
-                                            <span class="sr-only">Edit</span>
+                                            @if(auth()->user()->is_admin)
+                                                <span class="sr-only">Approve</span>
+                                            @else
+                                                <span class="sr-only">Edit</span>
+                                            @endif
                                         </th>
                                     </tr>
                                     </thead>
@@ -77,7 +81,11 @@
                                             <a href="#" class="text-indigo-600 hover:text-indigo-900">{{ $post->created_at->diffForHumans() }}</a>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            @if(auth()->user()->is_admin)
+                                                <a href="{{ route('edit-post-admin', ['slug' => $post->slug]) }}" class="text-indigo-600 hover:text-indigo-900">Review</a>
+                                            @else
+                                                <a href="{{ route('edit-post', ['slug' => $post->slug]) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
