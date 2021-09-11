@@ -13,6 +13,9 @@
     </x-slot>
 
     <div class="py-12">
+        @if(session('success'))
+            {{ session('success') }}
+        @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- This example requires Tailwind CSS v2.0+ -->

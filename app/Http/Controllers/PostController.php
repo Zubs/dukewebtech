@@ -47,10 +47,7 @@ class PostController extends Controller
         $data = $this->validate($request, [
             'title' => ['string', 'required', 'max:255', 'unique:posts'],
             'body' => ['string', 'required'],
-            'audio' => ['required', 'mimes:audio/mp3']
         ]);
-
-        var_dump($request->file);
 
         $post = new Post;
         $post->id = Str::uuid();
@@ -62,7 +59,14 @@ class PostController extends Controller
 
         // Handle image
         if ($request->hasFile('audio') && $request->file('audio')->isValid()) {
-            return 'File dey';
+            $document = $request->file('audio');
+            $file_name = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $document->getClientOriginalExtension();
+            $document->storeAs('/public/audio', $file_name);
+            $post->audio_name = $file_name;
+        };
+
+        if ($post->save()) {
+            return redirect()->route('dashboard')->with('success', 'Post created successfully');
         };
 
         return $post;
