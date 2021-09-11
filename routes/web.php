@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $posts = Post::all();
+    $posts = Post::where('published', true)->get();
     return view('welcome')->with('posts', $posts);
 })->name('home');
 
@@ -30,6 +30,7 @@ Route::group([
     Route::post('/edit', [PostController::class, 'store'])->name('store-post');
     Route::get('/edit/{slug}', [PostController::class, 'edit'])->name('edit-post');
     Route::get('/review/{slug}', [PostController::class, 'review'])->name('edit-post-admin');
+    Route::get('/approve/{slug}', [PostController::class, 'approve'])->name('approve');
 });
 
 Route::get('/post/{slug}', [PostController::class, 'show'])->name('show-post');

@@ -4,6 +4,9 @@
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
+            <p style="float: right">
+                <a href="{{ route('approve', ['slug' => $post->slug]) }}" type="submit" class="block text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 mb-3">Approve</a>
+            </p>
             <h3 class="text-lg leading-6 font-medium text-gray-900">
                 Post Information
             </h3>

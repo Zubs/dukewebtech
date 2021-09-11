@@ -80,6 +80,8 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::firstWhere('slug', $slug);
+        $post->views = $post->views + 1;
+        $post->save();
 
         return view('posts.show')->with('post', $post);
     }
@@ -89,6 +91,14 @@ class PostController extends Controller
         $post = Post::firstWhere('slug', $slug);
 
         return view('admin.edit')->with('post', $post);
+    }
+
+    public function approve ($slug) {
+        $post = Post::firstWhere('slug', $slug);
+        $post->published = true;
+        $post->save();
+
+        return redirect()->route('dashboard')->with('success', 'Post approved successfully');
     }
 
     /**
