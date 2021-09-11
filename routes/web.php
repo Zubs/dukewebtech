@@ -29,6 +29,7 @@ Route::group([
 ], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/edit', [PostController::class, 'create'])->name('create-post');
+    Route::post('/edit', [PostController::class, 'store'])->name('store-post');
     Route::get('/edit/{uuid}', [PostController::class, 'edit']);
 });
 

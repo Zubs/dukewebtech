@@ -19,8 +19,8 @@ class CreatePostsTable extends Migration
             $table->mediumText('excerpt');
             $table->string('slug')->unique();
             $table->text('body');
-            $table->boolean('status'); // Add Eval later
-            $table->integer('views');
+            $table->boolean('published')->default(false);
+            $table->integer('views')->default(0);
             $table->string('audio_name')->unique();
             $table->uuid('user_id');
             $table->timestamps();

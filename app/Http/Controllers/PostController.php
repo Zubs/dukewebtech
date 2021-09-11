@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -43,7 +44,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'title' => ['string', 'required', 'max:255', 'unique:posts'],
+            'body' => ['string', 'required'],
+            'audio' => ['required', 'mimes:audio/mp3']
+        ]);
+
+        var_dump($request->file);
+
+        $post = new Post;
+        $post->id = Str::uuid();
+        $post->title = $request->title;
+        $post->excerpt = Str::words($request->body, 30);
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+        $post->user_id = Auth::id();
+
+        // Handle image
+        if ($request->hasFile('audio') && $request->file('audio')->isValid()) {
+            return 'File dey';
+        };
+
+        return $post;
     }
 
     /**
