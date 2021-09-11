@@ -9,8 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function belongsTo($related, $foreignKey = null, $ownerKey = null, $relation = null)
+    protected $dates = ['created_at', 'updated_at'];
+
+    public function user()
     {
-        // Sort relationship later
+        return $this->belongsTo(User::class);
     }
 }

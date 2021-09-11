@@ -52,7 +52,7 @@ class PostController extends Controller
         $post = new Post;
         $post->id = Str::uuid();
         $post->title = $request->title;
-        $post->excerpt = Str::words($request->body, 30);
+        $post->excerpt = Str::words($request->body, 15);
         $post->slug = Str::slug($request->title);
         $post->body = $request->body;
         $post->user_id = Auth::id();
@@ -76,12 +76,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($slug)
     {
-        return $uuid;
-        $post = Post::findOrFail($uuid);
+        $post = Post::firstWhere('slug', $slug);
 
-        return view('posts.show');
+        return view('posts.show')->with('post', $post);
     }
 
     /**

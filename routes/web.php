@@ -33,6 +33,6 @@ Route::group([
     Route::get('/edit/{uuid}', [PostController::class, 'edit']);
 });
 
-Route::get('/post/{uuid}', [PostController::class, 'show']);
+Route::get('/post/{slug}', [PostController::class, 'show'])->name('show-post');
 
 require __DIR__.'/auth.php';
