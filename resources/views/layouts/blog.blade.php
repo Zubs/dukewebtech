@@ -40,9 +40,14 @@
                 <div class="hidden sm:block sm:ml-6">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <a href="{{ route('dashboard') }}" class="text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                        @endauth
                         <a href="{{ route('home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        @guest
+                            <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                            <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        @endguest
                     </div>
                 </div>
             </div>
