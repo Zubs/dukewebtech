@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = new User;
-        $user->id = Str::uuid();
+        $user->id = (string) Str::uuid();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
