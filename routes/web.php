@@ -28,11 +28,11 @@ Route::group([
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/edit', [PostController::class, 'create'])->name('create-post');
     Route::post('/edit', [PostController::class, 'store'])->name('store-post');
-    Route::get('/edit/{slug}', [PostController::class, 'edit'])->name('edit-post');
-    Route::get('/review/{slug}', [PostController::class, 'review'])->name('edit-post-admin');
-    Route::get('/approve/{slug}', [PostController::class, 'approve'])->name('approve');
+    Route::get('/edit/{post:slug}', [PostController::class, 'edit'])->name('edit-post');
+    Route::get('/review/{post:slug}', [PostController::class, 'review'])->name('edit-post-admin');
+    Route::get('/approve/{post:slug}', [PostController::class, 'approve'])->name('approve');
 });
 
-Route::get('/post/{slug}', [PostController::class, 'show'])->name('show-post');
+Route::get('/post/{post:slug}', [PostController::class, 'show'])->name('show-post');
 
 require __DIR__.'/auth.php';

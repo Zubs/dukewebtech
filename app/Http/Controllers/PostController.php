@@ -61,24 +61,20 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Post $post)
     {
-        $post = Post::firstWhere('slug', $slug);
         $post->views = $post->views + 1;
         $post->save();
 
         return view('posts.show')->with('post', $post);
     }
 
-    public function review ($slug)
+    public function review (Post $post)
     {
-        $post = Post::firstWhere('slug', $slug);
-
         return view('admin.edit')->with('post', $post);
     }
 
-    public function approve ($slug) {
-        $post = Post::firstWhere('slug', $slug);
+    public function approve (Post $post) {
         $post->published = true;
         $post->save();
 
@@ -93,7 +89,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit');
+        return view('admin.edit');
     }
 
     /**
